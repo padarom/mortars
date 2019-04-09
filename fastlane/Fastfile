@@ -1,4 +1,4 @@
-fastlane_version '2.118.0'
+fastlane_version '2.58.0'
 
 platform :ios do
 
@@ -41,7 +41,7 @@ platform :ios do
     build_number = get_build_number(xcodeproj: './ios/Runner.xcodeproj')
 
     tag = "deploy-#{version_number}-#{build_number}"
-    add_git_tag(key: tag)
+    add_git_tag(tag: tag)
 
     sh('git', 'remote', 'add', 'http', "https://#{ENV['GITHUB_TOKEN']}@github.com/padarom/mortars.git")
     push_git_tags(remote: 'http')
