@@ -1,0 +1,4 @@
+git_url "https://#{ENV['GITHUB_TOKEN']}@#{ENV['GITHUB_MATCH_URL']}"
+username "#{ENV['FASTLANE_USERNAME']}"
+app_identifier "xyz.padarom.mortars"
+team_id "4Y26UVVCGF"
