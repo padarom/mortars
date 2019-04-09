@@ -43,7 +43,7 @@ platform :ios do
     tag = "deploy-#{version_number}-#{build_number}"
     add_git_tag(key: tag)
 
-    sh('git', 'remote', 'add', 'http', "https://#{ENV['GITHUB_SUBMODULES_USER']}@github.com/padarom/mortars.git")
+    sh('git', 'remote', 'add', 'http', "https://#{ENV['GITHUB_TOKEN']}@github.com/padarom/mortars.git")
     push_git_tags(remote: 'http')
   end
 

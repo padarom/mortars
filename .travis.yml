@@ -9,11 +9,8 @@ before_install:
 - fastlane run setup_travis
 install:
 - bundle install
-before_script:
-- bundle exec fastlane setup
 script:
-- bundle exec fastlane ios build
-- bundle exec fastlane ios beta
+- bundle exec fastlane ios deploy
 env:
   global:
   - secure: rsF1K/G6NgJ2ruT+cu58sgLblDB5k+v09HY/qhLKsWCM5I26iTZNdUnHpWEABYRZzpuJq2QKLH62FxHHrNOJSvl//RYhqseV9EPnKp+lqp74Ly/nFmut3sbwz3Qc7ckqvIe04TZ+EwXjgtX4EaEp2acJTV6vkEaSaSyt3kxSuyQrg764ZxRPe1vQoGj3mt/qbsA1AuumiHvFhBl8JqAwPOX+eoZDFyJuJAKO3F2+lllW4mbac408qvZU/IyvHhGb6hmsyhZgWgzUSbEMi3e6NLrBa4mMdq3o8lh1DVStNT0QdK9w208KUsnDtMmJnmf7t4dj2m32c/zyMBYffsATfvphvWlsqapKja2ortXP3JiphUycyYu4855DAuFvdhtY0nUDelnp12g1J1gSB7VnpX6Sqk0LwgAwc8ccr0fgQHHfI7xwwYAIpDBOELfK9uBHeSjB5os5eKzXz08a18BAVNvEMykfUybJ/UvYK4UEpgKGRDav5qT26yfKAMgD84ESjZlrPenz53PTLWhwTK9WjcdklyL4N+WQZHrk1WBgmoijfCrVTbx08WYMB98srcA6+iPFJso1PB+jxJP+obVryoWtmgTT9AhNZfW2dkw6HLrYrlOXfvLUdgYx289OSZ25HN/hyjTwmJSVOlkSy/ivcZjLQNDJ9v6iipn0+gOXX+E=

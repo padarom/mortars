@@ -9,6 +9,12 @@
 .history
 .svn/
 
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+
 # IntelliJ related
 *.iml
 *.ipr
