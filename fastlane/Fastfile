@@ -4,7 +4,7 @@ platform :ios do
 
   lane :setup_signing do
     setup_travis
-    disable_automatic_code_signing(path: "ios/Runner.xcodeproj")
+    disable_automatic_code_signing(path: "ios/Mortars.xcodeproj")
     match(app_identifier: 'xyz.padarom.mortars', type: 'appstore')
   end
 
@@ -13,8 +13,8 @@ platform :ios do
   end
 
   lane :set_new_build_number do
-    build_number = Time.new.strftime('%Y.%m.%d.%H%M')
-    increment_build_number(build_number: build_number, xcodeproj: './ios/Runner.xcodeproj')
+    build_number = Time.new.strftime('%Y%m%d%H%M')
+    increment_build_number(build_number: build_number, xcodeproj: './ios/Mortars.xcodeproj')
   end
 
   lane :deploy do
@@ -25,20 +25,19 @@ platform :ios do
 
   lane :ship do
     gym(
-      workspace: './ios/Runner.xcworkspace',
+      workspace: './ios/Mortars.xcworkspace',
       configuration: 'Release',
-      scheme: 'Runner',
+      scheme: 'Mortars',
       export_options: {
         provisioningProfiles: {
-          "xyz.padarom.mortars": "match AppStore xyz.padarom.mortars",
-          "Runner": "match AppStore xyz.padarom.mortars"
+          "xyz.padarom.mortars": "match AppStore xyz.padarom.mortars"
         }
       }
     )
     pilot(username: ENV['FASTLANE_USERNAME'], skip_waiting_for_build_processing: true)
 
-    version_number = get_version_number(xcodeproj: './ios/Runner.xcodeproj')
-    build_number = get_build_number(xcodeproj: './ios/Runner.xcodeproj')
+    version_number = get_version_number(xcodeproj: './ios/Mortars.xcodeproj')
+    build_number = get_build_number(xcodeproj: './ios/Mortars.xcodeproj')
 
     tag = "deploy-#{version_number}-#{build_number}"
     add_git_tag(tag: tag)

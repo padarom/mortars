@@ -9,27 +9,19 @@ before_cache:
 before_install:
   - echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
   - fastlane run setup_travis
-  - gem update --system
-  - gem install bundler
 install:
-  - bundle install
   - brew update
-  - brew install --HEAD usbmuxd
-  - brew install --HEAD libimobiledevice
-  - brew install ideviceinstaller
-  - brew install ios-deploy
-  - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+  - brew install fastlane
+  - npm install
 before_script:
   - flutter doctor
 script:
-  - flutter build ios --release --no-codesign
-  - bundle exec fastlane ios deploy
+  - npm run ios:deploy
 cache:
   directories:
     - $HOME/Library/Caches/Homebrew
 env:
   global:
-  - PATH=${TRAVIS_BUILD_DIR}/flutter/bin:${PATH}
   - secure: rsF1K/G6NgJ2ruT+cu58sgLblDB5k+v09HY/qhLKsWCM5I26iTZNdUnHpWEABYRZzpuJq2QKLH62FxHHrNOJSvl//RYhqseV9EPnKp+lqp74Ly/nFmut3sbwz3Qc7ckqvIe04TZ+EwXjgtX4EaEp2acJTV6vkEaSaSyt3kxSuyQrg764ZxRPe1vQoGj3mt/qbsA1AuumiHvFhBl8JqAwPOX+eoZDFyJuJAKO3F2+lllW4mbac408qvZU/IyvHhGb6hmsyhZgWgzUSbEMi3e6NLrBa4mMdq3o8lh1DVStNT0QdK9w208KUsnDtMmJnmf7t4dj2m32c/zyMBYffsATfvphvWlsqapKja2ortXP3JiphUycyYu4855DAuFvdhtY0nUDelnp12g1J1gSB7VnpX6Sqk0LwgAwc8ccr0fgQHHfI7xwwYAIpDBOELfK9uBHeSjB5os5eKzXz08a18BAVNvEMykfUybJ/UvYK4UEpgKGRDav5qT26yfKAMgD84ESjZlrPenz53PTLWhwTK9WjcdklyL4N+WQZHrk1WBgmoijfCrVTbx08WYMB98srcA6+iPFJso1PB+jxJP+obVryoWtmgTT9AhNZfW2dkw6HLrYrlOXfvLUdgYx289OSZ25HN/hyjTwmJSVOlkSy/ivcZjLQNDJ9v6iipn0+gOXX+E=
   - secure: QRylzyyat8CUKkUo8QwXTBQGCmMzBooLLD+o2o3UW8ic4nc5PAlexPlRPEkneXzLJ5LU+uPtAXMRgl9z3JhJHTO8P7ACbiplMhlS8y6zvrAbKnhq/YHtLBAsGbqTg2zOxBtcEiMwSiJLg27zA8iefenZ1dMSGFE7Jn7jH90RhkQRH/1sCSO9Y15S/n2OPAmTPS7ERlx3C7kGh+t7TzKp3YEaNIAf1iga5sdV/0ZZ2TDnpCpQLIdihjrf0oy6rQe5U4/1zDn//NrHBOh1aCc/QltcLsVszFyjcXdGOc5+rqz9gfLg3Vp874xjSpwvWNKr9BF3h/5NTr4+v+o0iQiDYH6zQADejNkhUU/+4batQka8P4X25yWpSsrWVYYVRajyrQ1ti2k1aVXk0zKKUGkg2xmwxubVeLxSEelFk7XyN++rHn83JL6skTgNGZcNhYvirXg9pYt9cPpByyH+m/W3+i2BII70/vHfrDbNfd/LZ/YC5dlT3bYt9GqM5pckPYKl6yyUXPULUj8vE4KuDo7zEB4UbspoXD9wb7mgwweE94ezqzouf2YZSxW5X9tHP66lIss8J2rz6h323+lfaFwNIT1J7RwFzYXnIz6dOjSx7EVPJqLHEa0PtNfg0KW6ArP0gBWUjYuRTnEQH+MJy7F0MhPxrVHVVmmzSb4SjuMWlLg=
   - secure: XsTyq7glnr7YA1TQdAPskSewsrGm0h62OISz1TvUtTK5gdJs3MD6cnHSbW3/21BiUFNW99ptdL0r9F8KVVDNSHM6bKhefIdcNJcNC/mcaPA01/yMsntJ+TB5EUWU+aepmO38xKyxESnm1LrIToqQGYs1jSr0jxxxCkKdqha9U6M12wZzSZUwNoFdreADffCmIusa4XseNljH2dMssOlwiN0oBVwk/GNpLN1Ji/gqlYCOcsw+eY9gaEmTR0cboIaWiZEyPjEDq8Z+uNhv798RFKWCZtMxbQb+mgW7wq98zO9zqCzODldlxTvaHGd+EqnHre4Q1q0xbocKKPfNoHDYeOAxppCEyuS3GaisPsU4WhDoIygE9IYbbcpGaBfO8aydhJV+FG1Wq6QA45bCEosO0ZOXDyITdU/NTcnpqJTJiTSsG9YZcqygUkPcqFanbgFNp+DwaJAWU+6f+KNKzlwEMXFVjtPbiVaYLI5AL8RYE89fAom6qKHwlNgU0Iz7v6JbZ0JYsp/X1/5VIDV97du4wmdGf1TFKvBXJJUJLc6zNE7Qxw5oqKqlXfGdbDDXAVjYnkaJBcn2POZCB3QCXfxdUrKBFxZTM23meD0I4rQG+V1b+bWndW652wdGZConjmtCe7fhMFaF/KBEtO5ot82iu2YdYxudT/7QLispDcDbK7Y=
